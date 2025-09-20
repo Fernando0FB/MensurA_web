@@ -1,4 +1,4 @@
-package com.MensurA.web.domain.entity;
+package com.MensurA.web.features.usuarios.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -29,4 +29,20 @@ public class Usuario {
     @Size(max = 11, message = "O CPF informado não pode conter mais de {max} caracteres")
     @NotBlank(message = "O CPF deve ser informado")
     private String cpf;
+
+    @Column(name = "login", nullable = false)
+    @NotBlank(message = "O login deve ser informado")
+    private String login;
+
+    @Column(name = "senha", nullable = false)
+    @NotBlank(message = "A senha deve ser informada")
+    private String senha;
+
+    @Column(name = "telefone")
+    @NotBlank(message = "O telefone deve ser informado")
+    private String telefone;
+
+    @Column(name = "identificador_unico")
+    private String identificadorUnico;
+
 }
