@@ -21,14 +21,15 @@ public class JwtUtil {
     private long EXPIRATION_TIME;
 
     private SecretKey getSigningKey() {
-        return Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(SECRET_KEY));
+        SecretKey secretKey = Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(SECRET_KEY));
+        return secretKey;
     }
 
     public String generateToken(Usuario usuario) {
         return Jwts.builder()
                 .setSubject(String.valueOf(usuario.getId()))
                 .setIssuedAt(new Date())
-                .claim("tenant", usuario.getId())
+                .claim("tenant", usuario.getIdentificadorUnico())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS512)
                 .compact();
@@ -61,6 +62,6 @@ public class JwtUtil {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        return claims.get("tenantId", String.class);
+        return claims.get("tenant", String.class);
     }
 }
