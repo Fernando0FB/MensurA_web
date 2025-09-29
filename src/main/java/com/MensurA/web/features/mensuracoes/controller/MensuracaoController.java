@@ -7,7 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/mensuracoes")
@@ -16,18 +19,35 @@ public class MensuracaoController {
 
     private final MensuracaoService mensuracaoService;
 
-    @GetMapping
-    public Page<MensuracaoDTO> list(@PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        return mensuracaoService.listarMensuracoes(pageable);
+    @GetMapping("/{id}")
+    public ResponseEntity<MensuracaoDTO> buscarMensuracao(@PathVariable Long id) {
+        return ResponseEntity.ok(mensuracaoService.getMensuracao(id));
     }
 
-    @GetMapping("/paciente/{pacienteId}")
-    public Page<MensuracaoDTO> listPacienteMensuracoes(@PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable, @PathVariable Long pacienteId) {
-        return mensuracaoService.listarMensuracoesPorPaciente(pacienteId, pageable);
+    @GetMapping("/paciente/{id}")
+    public ResponseEntity<Page<MensuracaoDTO>> listarMensuracoesPorPaciente(
+            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+            @PathVariable Long id
+    ) {
+        return ResponseEntity.ok(mensuracaoService.listarMensuracoesPorPaciente(pageable, id));
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<MensuracaoDTO>> listarTodasMensuracoes(
+            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+        return ResponseEntity.ok(mensuracaoService.listarMensuracoes(pageable));
     }
 
     @PostMapping
-    public MensuracaoDTO cadastrarMensuracao(@RequestBody MensuracaoDTO mensuracaoDTO) {
-        return mensuracaoService.cadastrarMensuracao(mensuracaoDTO);
+    public MensuracaoDTO criarMensuracao(@RequestBody MensuracaoDTO mensuracaoDTO) {
+        return mensuracaoService.criarMensuracao(mensuracaoDTO);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarMensuracao(@PathVariable Long id) {
+        mensuracaoService.deletarMensuracao(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

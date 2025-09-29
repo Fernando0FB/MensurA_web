@@ -1,6 +1,5 @@
 package com.MensurA.web.features.pacientes.dto;
 
-import com.MensurA.web.features.mensuracoes.dto.MensuracaoDTO;
 import com.MensurA.web.features.pacientes.model.Paciente;
 
 import java.time.LocalDate;

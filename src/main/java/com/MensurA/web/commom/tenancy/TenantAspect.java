@@ -17,7 +17,7 @@ public class TenantAspect {
 
     private final EntityManager entityManager;
 
-    @Before(value = ("execution(* com.MensurA.web.features.*.*.*.*(..))"))
+    @Before("execution(* com.MensurA.web.features.*.*.*.*(..))")
     public void setFiltroTenant() {
         String tenant = TenantContext.getCurrentTenant();
 

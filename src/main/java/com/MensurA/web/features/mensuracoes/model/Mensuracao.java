@@ -5,16 +5,14 @@ import com.MensurA.web.features.mensuracoes.enums.Articulacao;
 import com.MensurA.web.features.mensuracoes.enums.Lado;
 import com.MensurA.web.features.mensuracoes.enums.Movimento;
 import com.MensurA.web.features.pacientes.model.Paciente;
+import com.MensurA.web.features.repeticoes.model.Repeticao;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Filter;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_mensuracoes")
@@ -43,32 +41,10 @@ public class Mensuracao {
     @Column(nullable = false, length = 30)
     private Movimento movimento;
 
-    @Column(nullable = false)
-    @NotNull(message = "O angulo inicial deve ser informado")
-    private Integer anguloInicial;
+    private String posicao;
 
-    @Column(nullable = false)
-    @NotNull(message = "O angulo final deve ser informado")
-    private Integer anguloFinal;
-
-    @Column()
-    private Integer amplitude;
-
-    @Min(value = 0)
-    @Max(value = 10)
-    private Integer dor;
-
-    @Column(length = 500)
-    private String limitacao;
-
-    @Column(length = 500)
-    private String compensacao;
-
-    @Column(length = 500)
-    private String observacoes;
-
-    @Column(nullable = false)
-    private LocalDateTime dataHora = LocalDateTime.now();
+    @OneToMany(mappedBy = "mensuracao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Repeticao> repeticoes;
 
     @TenantField
     @Column(name = "tenant")
