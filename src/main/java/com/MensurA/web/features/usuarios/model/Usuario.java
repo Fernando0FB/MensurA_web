@@ -33,7 +33,7 @@ public class Usuario {
     @NotBlank(message = "O CPF deve ser informado")
     private String cpf;
 
-    @Column(name = "login", nullable = false)
+    @Column(unique = true, name = "login", nullable = false)
     @NotBlank(message = "O login deve ser informado")
     private String login;
 

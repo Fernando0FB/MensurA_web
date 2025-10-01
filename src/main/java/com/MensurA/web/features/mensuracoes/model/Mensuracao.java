@@ -1,9 +1,9 @@
 package com.MensurA.web.features.mensuracoes.model;
 
 import com.MensurA.web.commom.tenancy.TenantField;
-import com.MensurA.web.features.mensuracoes.enums.Articulacao;
-import com.MensurA.web.features.mensuracoes.enums.Lado;
-import com.MensurA.web.features.mensuracoes.enums.Movimento;
+import com.MensurA.web.commom.enums.Articulacao;
+import com.MensurA.web.commom.enums.Lado;
+import com.MensurA.web.commom.enums.Movimento;
 import com.MensurA.web.features.pacientes.model.Paciente;
 import com.MensurA.web.features.repeticoes.model.Repeticao;
 import jakarta.persistence.*;

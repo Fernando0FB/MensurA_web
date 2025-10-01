@@ -24,7 +24,7 @@ public class UsuarioService {
     private final JwtUtil jwtUtil;
 
     public LoginResponse login(LoginRequest loginRequest) {
-        Usuario usuario = usuarioRepository.findByLogin(loginRequest.login())
+        Usuario usuario = usuarioRepository.findByLogin(loginRequest.login().toLowerCase())
                 .orElseThrow(() -> new UsuarioNaoEncontradoException(loginRequest.login()));
 
         if (!passwordEncoder.matches(loginRequest.senha(), usuario.getSenha())) {
@@ -36,6 +36,7 @@ public class UsuarioService {
 
     public UsuarioResponse cadastrarUsuario(UsuarioRequest usuarioReq) {
         Usuario usuario = usuarioReq.toEntity();
+        usuario.setLogin(usuarioReq.login().toLowerCase());
         usuario.setSenha(passwordEncoder.encode(usuarioReq.senha()));
         return UsuarioResponse.from(usuarioRepository.save(usuario));
     }

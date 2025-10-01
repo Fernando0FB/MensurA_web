@@ -1,4 +1,4 @@
-package com.MensurA.web.features.mensuracoes.enums;
+package com.MensurA.web.commom.enums;
 
 public enum Movimento {
     FLEXAO,

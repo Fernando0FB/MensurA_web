@@ -2,6 +2,7 @@ package com.MensurA.web.features.mensuracoes.controller;
 
 import com.MensurA.web.features.mensuracoes.dto.MensuracaoDTO;
 import com.MensurA.web.features.mensuracoes.service.MensuracaoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,8 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/mensuracoes")
@@ -40,7 +39,7 @@ public class MensuracaoController {
     }
 
     @PostMapping
-    public MensuracaoDTO criarMensuracao(@RequestBody MensuracaoDTO mensuracaoDTO) {
+    public MensuracaoDTO criarMensuracao(@Valid @RequestBody MensuracaoDTO mensuracaoDTO) {
         return mensuracaoService.criarMensuracao(mensuracaoDTO);
     }
 
@@ -50,4 +49,8 @@ public class MensuracaoController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/{idMensuracao}/analise")
+    public ResponseEntity<?> gerarAnaliseMensuracao(@PathVariable Long idMensuracao) {
+        return ResponseEntity.ok(mensuracaoService.getAnaliseMensuracao(idMensuracao));
+    }
 }

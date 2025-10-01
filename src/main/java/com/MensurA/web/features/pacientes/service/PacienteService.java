@@ -32,10 +32,12 @@ public class PacienteService {
     public PacienteDTO criarPaciente(PacienteDTO pacienteDTO) {
         Paciente paciente = new Paciente();
         paciente.setNome(pacienteDTO.nome());
+        paciente.setIdade(pacienteDTO.idade());
+        paciente.setCpf(pacienteDTO.cpf());
+        paciente.setDataNascimento(pacienteDTO.dataNascimento());
+        paciente.setEmail(pacienteDTO.email());
         paciente.setSexo(pacienteDTO.sexo());
         paciente.setObservacoes(pacienteDTO.observacoes());
-        paciente.setEmail(pacienteDTO.email());
-        paciente.setDataNascimento(pacienteDTO.dataNascimento());
         return PacienteDTO.from(pacienteRepository.save(paciente));
     }
 

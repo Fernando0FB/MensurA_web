@@ -2,6 +2,7 @@ package com.MensurA.web.features.pacientes.controller;
 
 import com.MensurA.web.features.pacientes.dto.PacienteDTO;
 import com.MensurA.web.features.pacientes.service.PacienteService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,7 +32,7 @@ public class PacienteController {
     }
 
     @PostMapping
-    public PacienteDTO cadastrarPaciente(@RequestBody PacienteDTO pacienteDTO) {
+    public PacienteDTO cadastrarPaciente(@Valid @RequestBody PacienteDTO pacienteDTO) {
         return pacienteService.criarPaciente(pacienteDTO);
     }
 
