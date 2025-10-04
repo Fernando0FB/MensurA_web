@@ -31,7 +31,7 @@ public class UsuarioService {
             throw new SenhaInvalidaException(loginRequest.login());
         }
 
-        return new LoginResponse(jwtUtil.generateToken(usuario));
+        return new LoginResponse(jwtUtil.generateToken(usuario), usuario.getNome());
     }
 
     public UsuarioResponse cadastrarUsuario(UsuarioRequest usuarioReq) {

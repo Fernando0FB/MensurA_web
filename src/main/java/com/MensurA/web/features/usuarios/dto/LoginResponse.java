@@ -1,3 +1,3 @@
 package com.MensurA.web.features.usuarios.dto;
 
-public record LoginResponse(String token) {}
+public record LoginResponse(String token, String nomeCompleto) {}
