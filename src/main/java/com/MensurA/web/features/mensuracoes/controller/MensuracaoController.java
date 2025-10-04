@@ -1,6 +1,7 @@
 package com.MensurA.web.features.mensuracoes.controller;
 
 import com.MensurA.web.features.mensuracoes.dto.MensuracaoDTO;
+import com.MensurA.web.features.mensuracoes.dto.MensuracaoResponse;
 import com.MensurA.web.features.mensuracoes.service.MensuracaoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,12 @@ public class MensuracaoController {
     private final MensuracaoService mensuracaoService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<MensuracaoDTO> buscarMensuracao(@PathVariable Long id) {
+    public ResponseEntity<MensuracaoResponse> buscarMensuracao(@PathVariable Long id) {
         return ResponseEntity.ok(mensuracaoService.getMensuracao(id));
     }
 
     @GetMapping("/paciente/{id}")
-    public ResponseEntity<Page<MensuracaoDTO>> listarMensuracoesPorPaciente(
+    public ResponseEntity<Page<MensuracaoResponse>> listarMensuracoesPorPaciente(
             @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
             @PathVariable Long id
     ) {
@@ -32,7 +33,7 @@ public class MensuracaoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<MensuracaoDTO>> listarTodasMensuracoes(
+    public ResponseEntity<Page<MensuracaoResponse>> listarTodasMensuracoes(
             @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable
     ) {
         return ResponseEntity.ok(mensuracaoService.listarMensuracoes(pageable));

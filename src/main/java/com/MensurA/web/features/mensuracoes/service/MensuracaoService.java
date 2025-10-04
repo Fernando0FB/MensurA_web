@@ -4,6 +4,7 @@ import com.MensurA.web.commom.exception.MensuracaoNaoEncontradaException;
 import com.MensurA.web.commom.exception.MensuracaoNaoFinalizadaException;
 import com.MensurA.web.commom.exception.PacienteNaoEncontradoException;
 import com.MensurA.web.features.mensuracoes.dto.MensuracaoDTO;
+import com.MensurA.web.features.mensuracoes.dto.MensuracaoResponse;
 import com.MensurA.web.features.mensuracoes.dto.analises.AnaliseDTO;
 import com.MensurA.web.features.mensuracoes.dto.analises.AvaliacaoAnaliseDTO;
 import com.MensurA.web.features.mensuracoes.dto.analises.PacienteAnaliseDTO;
@@ -28,11 +29,11 @@ public class MensuracaoService {
     private final MensuracaoRepository mensuracaoRepository;
     private final PacienteRepository pacienteRepository;
 
-    public Page<MensuracaoDTO> listarMensuracoes(Pageable pageable) {
-        return mensuracaoRepository.findAll(pageable).map(MensuracaoDTO::from);
+    public Page<MensuracaoResponse> listarMensuracoes(Pageable pageable) {
+        return mensuracaoRepository.findAll(pageable).map(MensuracaoResponse::from);
     }
 
-    public Page<MensuracaoDTO> listarMensuracoesPorPaciente(Pageable pageable, Long pacienteId) {
+    public Page<MensuracaoResponse> listarMensuracoesPorPaciente(Pageable pageable, Long pacienteId) {
         Paciente paciente = pacienteRepository.findById(pacienteId).orElseThrow(() ->
                 new PacienteNaoEncontradoException(pacienteId)
         );
@@ -67,9 +68,9 @@ public class MensuracaoService {
         }).orElseThrow(() -> new MensuracaoNaoEncontradaException(id));
     }
 
-    public MensuracaoDTO getMensuracao(Long id) {
+    public MensuracaoResponse getMensuracao(Long id) {
         return mensuracaoRepository.findById(id)
-                .map(MensuracaoDTO::from)
+                .map(MensuracaoResponse::from)
                 .orElseThrow(() -> new MensuracaoNaoEncontradaException(id));
     }
 
