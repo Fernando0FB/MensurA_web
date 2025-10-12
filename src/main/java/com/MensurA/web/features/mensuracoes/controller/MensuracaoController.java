@@ -33,10 +33,12 @@ public class MensuracaoController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<MensuracaoResponse>> listarTodasMensuracoes(
+    public ResponseEntity<Page<MensuracaoResponse>> listar(
+            @RequestParam(required = false) Long pacienteId,
+            @RequestParam(required = false) String articulacao,
             @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        return ResponseEntity.ok(mensuracaoService.listarMensuracoes(pageable));
+        return ResponseEntity.ok(mensuracaoService.buscarFiltrado(pacienteId, articulacao, pageable));
     }
 
     @PostMapping

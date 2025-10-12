@@ -17,10 +17,14 @@ import com.MensurA.web.features.repeticoes.model.Repeticao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.MensurA.web.features.mensuracoes.model.MensuracaoSpecs.hasArticulacao;
+import static com.MensurA.web.features.mensuracoes.model.MensuracaoSpecs.hasPacienteId;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +32,15 @@ public class MensuracaoService {
 
     private final MensuracaoRepository mensuracaoRepository;
     private final PacienteRepository pacienteRepository;
+
+    public Page<MensuracaoResponse> buscarFiltrado(Long pacienteId, String articulacao, Pageable pageable) {
+        Specification<Mensuracao> spec = Specification
+                .where(hasPacienteId(pacienteId))
+                .and(hasArticulacao(articulacao));
+
+        return mensuracaoRepository.findAll(spec, pageable)
+                .map(MensuracaoResponse::from);
+    }
 
     public Page<MensuracaoResponse> listarMensuracoes(Pageable pageable) {
         return mensuracaoRepository.findAll(pageable).map(MensuracaoResponse::from);
