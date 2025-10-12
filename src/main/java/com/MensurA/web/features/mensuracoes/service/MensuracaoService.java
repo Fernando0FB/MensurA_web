@@ -23,8 +23,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.MensurA.web.features.mensuracoes.model.MensuracaoSpecs.hasArticulacao;
-import static com.MensurA.web.features.mensuracoes.model.MensuracaoSpecs.hasPacienteId;
+import static com.MensurA.web.features.mensuracoes.model.MensuracaoSpecs.*;
 
 @Service
 @RequiredArgsConstructor
@@ -33,9 +32,10 @@ public class MensuracaoService {
     private final MensuracaoRepository mensuracaoRepository;
     private final PacienteRepository pacienteRepository;
 
-    public Page<MensuracaoResponse> buscarFiltrado(Long pacienteId, String articulacao, Pageable pageable) {
+    public Page<MensuracaoResponse> buscarFiltrado(Long pacienteId, String pacienteNome, String articulacao, Pageable pageable) {
         Specification<Mensuracao> spec = Specification
                 .where(hasPacienteId(pacienteId))
+                .and(hasNome(pacienteNome))
                 .and(hasArticulacao(articulacao));
 
         return mensuracaoRepository.findAll(spec, pageable)
