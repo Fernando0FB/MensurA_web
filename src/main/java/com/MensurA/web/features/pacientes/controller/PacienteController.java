@@ -20,8 +20,12 @@ public class PacienteController {
     private final PacienteService pacienteService;
 
     @GetMapping
-    public ResponseEntity<Page<PacienteDTO>> list(@PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<PacienteDTO> pacientes = pacienteService.listPacientes(pageable);
+    public ResponseEntity<Page<PacienteDTO>> listar(
+            @RequestParam(required = false) String pacienteNome,
+            @RequestParam(required = false) String cpf,
+            @PageableDefault(size = 20, sort = "id", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+        Page<PacienteDTO> pacientes = pacienteService.buscarFiltrado(pacienteNome, cpf, pageable);
         return ResponseEntity.status(pacientes.isEmpty() ? HttpStatus.NOT_FOUND : HttpStatus.OK).body(pacientes);
     }
 
