@@ -24,6 +24,7 @@ public class PacienteService {
                 .orElseThrow(() -> new PacienteNaoEncontradoException(id));
     }
 
+    @Transactional
     public Page<PacienteDTO> listPacientes(Pageable pageable) {
         return pacienteRepository.findAll(pageable).map(PacienteDTO::from);
     }
@@ -39,11 +40,6 @@ public class PacienteService {
         paciente.setSexo(pacienteDTO.sexo());
         paciente.setObservacoes(pacienteDTO.observacoes());
         return PacienteDTO.from(pacienteRepository.save(paciente));
-    }
-
-    public PacienteMensuracoesDTO listarPacienteComMensuracoes(Long id) {
-        return PacienteMensuracoesDTO.from(pacienteRepository.findById(id)
-                .orElseThrow(() -> new PacienteNaoEncontradoException(id)));
     }
 
     public void deletarPaciente(Long id) {

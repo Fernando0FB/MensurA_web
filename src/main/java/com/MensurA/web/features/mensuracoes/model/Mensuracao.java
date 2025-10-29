@@ -43,7 +43,7 @@ public class Mensuracao {
 
     private String posicao;
 
-    @OneToMany(mappedBy = "mensuracao", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "mensuracao", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Repeticao> repeticoes;
 
     @TenantField

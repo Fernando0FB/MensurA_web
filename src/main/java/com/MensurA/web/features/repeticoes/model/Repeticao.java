@@ -43,7 +43,7 @@ public class Repeticao {
     @NotNull(message = "A serie deve ser informada")
     private Integer serie;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "mensuracao_id")
     private Mensuracao mensuracao;
 }

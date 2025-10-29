@@ -19,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class MensuracaoService {
     private final MensuracaoRepository mensuracaoRepository;
     private final PacienteRepository pacienteRepository;
 
+    @Transactional(readOnly = true)
     public Page<MensuracaoResponse> buscarFiltrado(Long pacienteId, String pacienteNome, String articulacao, Pageable pageable) {
         Specification<Mensuracao> spec = Specification
                 .where(hasPacienteId(pacienteId))
@@ -42,10 +44,7 @@ public class MensuracaoService {
                 .map(MensuracaoResponse::from);
     }
 
-    public Page<MensuracaoResponse> listarMensuracoes(Pageable pageable) {
-        return mensuracaoRepository.findAll(pageable).map(MensuracaoResponse::from);
-    }
-
+    @Transactional(readOnly = true)
     public Page<MensuracaoResponse> listarMensuracoesPorPaciente(Pageable pageable, Long pacienteId) {
         Paciente paciente = pacienteRepository.findById(pacienteId).orElseThrow(() ->
                 new PacienteNaoEncontradoException(pacienteId)
@@ -81,12 +80,14 @@ public class MensuracaoService {
         }).orElseThrow(() -> new MensuracaoNaoEncontradaException(id));
     }
 
+    @Transactional(readOnly = true)
     public MensuracaoResponse getMensuracao(Long id) {
         return mensuracaoRepository.findById(id)
                 .map(MensuracaoResponse::from)
                 .orElseThrow(() -> new MensuracaoNaoEncontradaException(id));
     }
 
+    @Transactional(readOnly = true)
     public AnaliseDTO getAnaliseMensuracao(Long idMensuracao) {
         Mensuracao mensuracao = mensuracaoRepository.findById(idMensuracao)
                 .orElseThrow(() -> new MensuracaoNaoEncontradaException(idMensuracao));

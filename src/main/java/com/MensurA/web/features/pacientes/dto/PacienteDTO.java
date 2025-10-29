@@ -21,9 +21,10 @@ public record PacienteDTO(
         LocalDate dataNascimento,
         @NotNull(message = "O sexo deve ser informado")
         Sexo sexo,
+        Integer quantidadeMensuracoes,
         String observacoes
 ) {
     public static PacienteDTO from(Paciente p) {
-        return new PacienteDTO(p.getId(), p.getNome(),  p.getCpf(), p.getIdade(), p.getEmail(), p.getDataNascimento(), p.getSexo(), p.getObservacoes());
+        return new PacienteDTO(p.getId(), p.getNome(),  p.getCpf(), p.getIdade(), p.getEmail(), p.getDataNascimento(), p.getSexo(), p.getMensuracoes().size(), p.getObservacoes());
     }
 }
