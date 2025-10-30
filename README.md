@@ -8,7 +8,7 @@ O **MensurA** é uma aplicação web desenvolvida em Spring Boot para gerenciame
 
 ### 👥 Gestão de Pacientes
 - Cadastro completo de pacientes com dados pessoais
-- Informações como nome, idade, CPF, data de nascimento, email e sexo
+- Informações como nome, CPF, data de nascimento, email e sexo
 - Sistema de observações para anotações relevantes
 - Histórico de mensurações por paciente
 

@@ -40,7 +40,6 @@ public class PacienteService {
     public PacienteDTO criarPaciente(PacienteDTO pacienteDTO) {
         Paciente paciente = new Paciente();
         paciente.setNome(pacienteDTO.nome());
-        paciente.setIdade(pacienteDTO.idade());
         paciente.setCpf(pacienteDTO.cpf());
         paciente.setDataNascimento(pacienteDTO.dataNascimento());
         paciente.setEmail(pacienteDTO.email());

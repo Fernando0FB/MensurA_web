@@ -30,10 +30,6 @@ public class Paciente {
     @NotBlank(message = "O nome deve ser informado")
     private String nome;
 
-    @Column(name = "idade", nullable = false)
-    @NotNull(message = "A idade deve ser informada")
-    private Integer idade;
-
     @Column(name = "cpf", nullable = false)
     @NotBlank(message = "O CPF deve ser informado")
     private String cpf;

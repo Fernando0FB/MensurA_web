@@ -13,8 +13,6 @@ public record PacienteDTO(
         String nome,
         @NotBlank(message = "O CPF deve ser informado")
         String cpf,
-        @NotNull(message = "A idade deve ser informada")
-        Integer idade,
         @NotBlank(message = "O email deve ser informado")
         String email,
         @NotNull(message = "A data de nascimento deve ser informada")
@@ -25,6 +23,6 @@ public record PacienteDTO(
         String observacoes
 ) {
     public static PacienteDTO from(Paciente p) {
-        return new PacienteDTO(p.getId(), p.getNome(),  p.getCpf(), p.getIdade(), p.getEmail(), p.getDataNascimento(), p.getSexo(), p.getMensuracoes().size(), p.getObservacoes());
+        return new PacienteDTO(p.getId(), p.getNome(),  p.getCpf(), p.getEmail(), p.getDataNascimento(), p.getSexo(), p.getMensuracoes().size(), p.getObservacoes());
     }
 }
