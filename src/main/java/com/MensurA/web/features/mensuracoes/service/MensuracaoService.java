@@ -34,11 +34,11 @@ public class MensuracaoService {
     private final PacienteRepository pacienteRepository;
 
     @Transactional(readOnly = true)
-    public Page<MensuracaoResponse> buscarFiltrado(Long pacienteId, String pacienteNome, String articulacao, Pageable pageable) {
+    public Page<MensuracaoResponse> buscarFiltrado(Long pacienteId, String valorBusca, Pageable pageable) {
         Specification<Mensuracao> spec = Specification
                 .where(hasPacienteId(pacienteId))
-                .and(hasNome(pacienteNome))
-                .and(hasArticulacao(articulacao));
+                .or(hasNome(valorBusca))
+                .or(hasArticulacao(valorBusca));
 
         return mensuracaoRepository.findAll(spec, pageable)
                 .map(MensuracaoResponse::from);
