@@ -4,7 +4,7 @@ import com.MensurA.web.commom.exception.MensuracaoNaoEncontradaException;
 import com.MensurA.web.commom.exception.PacienteNaoEncontradoException;
 import com.MensurA.web.features.mensuracoes.dto.MensuracaoDTO;
 import com.MensurA.web.features.mensuracoes.dto.MensuracaoResponse;
-import com.MensurA.web.features.mensuracoes.dto.analises.AnaliseDTO;
+import com.MensurA.web.features.mensuracoes.dto.analises.AnaliseResponse;
 import com.MensurA.web.features.mensuracoes.dto.analises.AvaliacaoAnaliseDTO;
 import com.MensurA.web.features.mensuracoes.dto.analises.PacienteAnaliseDTO;
 import com.MensurA.web.features.mensuracoes.model.Mensuracao;
@@ -17,10 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static com.MensurA.web.features.mensuracoes.model.MensuracaoSpecs.*;
 
 @Service
@@ -81,13 +77,13 @@ public class MensuracaoService {
     }
 
     @Transactional(readOnly = true)
-    public AnaliseDTO getAnaliseMensuracao(Long idMensuracao) {
+    public AnaliseResponse getAnaliseMensuracao(Long idMensuracao) {
         Mensuracao mensuracao = mensuracaoRepository.findById(idMensuracao)
                 .orElseThrow(() -> new MensuracaoNaoEncontradaException(idMensuracao));
 
         PacienteAnaliseDTO pacienteAnaliseDTO = PacienteAnaliseDTO.from(mensuracao.getPaciente());
         AvaliacaoAnaliseDTO avaliacaoAnaliseDTO = AvaliacaoAnaliseDTO.from(mensuracao);
 
-        return new AnaliseDTO(pacienteAnaliseDTO, avaliacaoAnaliseDTO, mensuracao.getObservacoes());
+        return new AnaliseResponse(pacienteAnaliseDTO, avaliacaoAnaliseDTO, mensuracao.getObservacoes());
     }
 }

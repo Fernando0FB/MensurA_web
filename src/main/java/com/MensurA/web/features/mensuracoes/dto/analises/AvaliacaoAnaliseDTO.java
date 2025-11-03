@@ -9,9 +9,15 @@ public record AvaliacaoAnaliseDTO(
         Articulacao articulacao,
         Lado lado,
         Movimento movimento,
-        String posicao
+        String posicao,
+        Integer anguloInicial,
+        Integer anguloFinal,
+        Integer excursao,
+        Integer dor,
+        String observacao
 ) {
     public static AvaliacaoAnaliseDTO from(Mensuracao mensuracao) {
-        return new AvaliacaoAnaliseDTO(mensuracao.getArticulacao(), mensuracao.getLado(), mensuracao.getMovimento(), mensuracao.getPosicao());
+        return new AvaliacaoAnaliseDTO(mensuracao.getArticulacao(), mensuracao.getLado(), mensuracao.getMovimento(), mensuracao.getPosicao(),
+                mensuracao.getAnguloInicial(), mensuracao.getAnguloFinal(), mensuracao.getExcursao(), mensuracao.getDor(), mensuracao.getObservacoes());
     }
 }

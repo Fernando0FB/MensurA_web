@@ -13,9 +13,16 @@ public record MensuracaoResponse(
         Articulacao articulacao,
         Lado lado,
         Movimento movimento,
-        String posicao
+        String posicao,
+        Integer anguloInicial,
+        Integer anguloFinal,
+        Integer excursao,
+        Integer dor,
+        String observacao
 ) {
     public static MensuracaoResponse from(Mensuracao mensuracao) {
-        return new MensuracaoResponse(mensuracao.getId(), PacienteMensuracaoDTO.from(mensuracao.getPaciente()), mensuracao.getArticulacao(), mensuracao.getLado(), mensuracao.getMovimento(), mensuracao.getPosicao());
+        return new MensuracaoResponse(mensuracao.getId(), PacienteMensuracaoDTO.from(mensuracao.getPaciente()), mensuracao.getArticulacao(),
+                mensuracao.getLado(), mensuracao.getMovimento(), mensuracao.getPosicao(), mensuracao.getAnguloInicial(), mensuracao.getAnguloFinal(),
+                mensuracao.getExcursao(), mensuracao.getDor(), mensuracao.getObservacoes());
     }
 }
