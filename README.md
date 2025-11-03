@@ -18,17 +18,13 @@ O **MensurA** é uma aplicação web desenvolvida em Spring Boot para gerenciame
 - **Movimentos**: Flexão, Extensão, Pronação e Supinação
 - Registro de posição específica para cada medição
 - Histórico completo de mensurações por paciente
-
-### 🔄 Repetições e Séries
-- Registro de múltiplas repetições por mensuração
-- Controle de séries para organização das medições
 - **Dados Registrados**:
   - Ângulo inicial (0° a 360°)
   - Ângulo final (0° a 360°)
   - Excursão (0° a 360°)
   - Escala de dor (0 a 10)
   - Observações detalhadas
-  - Data e hora automática de cada repetição
+  - Data e hora automática da mensuração
 
 ### 🔐 Sistema de Autenticação
 - Autenticação JWT (JSON Web Token)
@@ -42,8 +38,6 @@ O **MensurA** é uma aplicação web desenvolvida em Spring Boot para gerenciame
 
 ### 📈 Análises e Relatórios
 - Análise de dados de mensurações
-- Resumos de repetições
-- Avaliações comparativas
 - Dados estruturados para relatórios
 
 ## 🛠️ Tecnologias Utilizadas
@@ -128,7 +122,6 @@ src/
 │   │   └── features/         # Funcionalidades do sistema
 │   │       ├── mensuracoes/  # Gestão de mensurações
 │   │       ├── pacientes/    # Gestão de pacientes
-│   │       ├── repeticoes/   # Gestão de repetições
 │   │       └── usuarios/     # Gestão de usuários
 │   └── resources/
 │       ├── application.properties
@@ -156,11 +149,10 @@ src/
 
 A aplicação expõe uma API REST com os seguintes endpoints principais:
 
-- **Autenticação**: `/auth/*`
-- **Pacientes**: `/pacientes/*`
-- **Mensurações**: `/mensuracoes/*`
-- **Repetições**: `/repeticoes/*`
-- **Usuários**: `/usuarios/*`
+- **Autenticação**: `auth/*`
+- **Pacientes**: `api/pacientes/*`
+- **Mensurações**: `api/mensuracoes/*`
+- **Usuários**: `api/usuarios/*`
 
 ## 📄 Licença
 

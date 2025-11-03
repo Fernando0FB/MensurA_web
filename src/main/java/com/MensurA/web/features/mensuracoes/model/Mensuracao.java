@@ -5,14 +5,16 @@ import com.MensurA.web.commom.enums.Articulacao;
 import com.MensurA.web.commom.enums.Lado;
 import com.MensurA.web.commom.enums.Movimento;
 import com.MensurA.web.features.pacientes.model.Paciente;
-import com.MensurA.web.features.repeticoes.model.Repeticao;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Filter;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_mensuracoes")
@@ -43,8 +45,24 @@ public class Mensuracao {
 
     private String posicao;
 
-    @OneToMany(mappedBy = "mensuracao", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Repeticao> repeticoes;
+    @Min(0) @Max(360)
+    @NotNull(message = "O angulo inicial deve ser informado")
+    private Integer anguloInicial;
+
+    @Min(0) @Max(360)
+    @NotNull(message = "O angulo final deve ser informado")
+    private Integer anguloFinal;
+
+    @Min(0) @Max(360)
+    private Integer excursao;
+
+    @Min(0) @Max(10)
+    private Integer dor;
+
+    private String observacoes;
+
+    @Column(name = "data_hora")
+    private LocalDateTime dataHora;
 
     @TenantField
     @Column(name = "tenant")

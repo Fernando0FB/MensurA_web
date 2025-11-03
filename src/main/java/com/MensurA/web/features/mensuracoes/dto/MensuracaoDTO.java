@@ -4,9 +4,11 @@ import com.MensurA.web.commom.enums.Articulacao;
 import com.MensurA.web.commom.enums.Lado;
 import com.MensurA.web.commom.enums.Movimento;
 import com.MensurA.web.features.mensuracoes.model.Mensuracao;
-import com.MensurA.web.features.repeticoes.dto.RepeticaoDTO;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public record MensuracaoDTO(
@@ -21,9 +23,23 @@ public record MensuracaoDTO(
         Movimento movimento,
         @NotNull(message = "A posicao deve ser informada")
         String posicao,
-        List<RepeticaoDTO> repeticoes
+        @Min(0) @Max(360)
+        @NotNull(message = "O angulo inicial deve ser informado")
+        Integer anguloInicial,
+        @Min(0) @Max(360)
+        @NotNull(message = "O angulo final deve ser informado")
+        Integer anguloFinal,
+        @Min(0) @Max(360)
+        Integer excursao,
+        @Min(0) @Max(10)
+        Integer dor,
+        String observacoes,
+        LocalDateTime dataHora
 ) {
     public static MensuracaoDTO from(Mensuracao mensuracao) {
-        return new MensuracaoDTO(mensuracao.getId(), mensuracao.getPaciente().getId(), mensuracao.getArticulacao(), mensuracao.getLado(), mensuracao.getMovimento(), mensuracao.getPosicao(), mensuracao.getRepeticoes().stream().map(RepeticaoDTO::from).toList());
+        return new MensuracaoDTO(mensuracao.getId(), mensuracao.getPaciente().getId(),
+                mensuracao.getArticulacao(), mensuracao.getLado(), mensuracao.getMovimento(),
+                mensuracao.getPosicao(), mensuracao.getAnguloInicial(), mensuracao.getAnguloFinal(),
+                mensuracao.getExcursao(), mensuracao.getDor(), mensuracao.getObservacoes(), mensuracao.getDataHora());
     }
 }
