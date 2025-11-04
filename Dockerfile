@@ -1,17 +1,21 @@
-FROM ubuntu:latest as BUILD
+# Etapa de build (Maven + JDK 21)
+FROM maven:3.9.9-eclipse-temurin-21 AS build
+WORKDIR /app
 
-RUN apt-get update
-RUN apt-get install openjdk-21-jdk -y
-COPY . .
+# Copie o pom primeiro para cachear dependências
+COPY pom.xml .
+RUN mvn -B -q -DskipTests dependency:go-offline
 
-RUN apt-get install maven -y
-RUN mvn clean install -DskipTests
+# Agora o código
+COPY src ./src
+RUN mvn -B -DskipTests package
 
-
-FROM openjdk:21-jdk
-
+# Etapa de runtime (JRE 21 enxuta)
+FROM eclipse-temurin:21-jre
+WORKDIR /app
 EXPOSE 8080
 
-COPY --from=build /target/web-0.0.1-SNAPSHOT.jar app.jar
+# Ajuste o nome do jar conforme o seu artifactId/version
+COPY --from=build /app/target/web-0.0.1-SNAPSHOT.jar app.jar
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","/app/app.jar"]
