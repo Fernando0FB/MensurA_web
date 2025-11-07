@@ -21,7 +21,6 @@ public record MensuracaoDTO(
         Lado lado,
         @NotNull(message = "O movimento deve ser informado")
         Movimento movimento,
-        @NotNull(message = "A posicao deve ser informada")
         String posicao,
         @Min(0) @Max(360)
         @NotNull(message = "O angulo inicial deve ser informado")
