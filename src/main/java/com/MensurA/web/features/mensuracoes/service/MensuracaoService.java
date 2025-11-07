@@ -87,6 +87,6 @@ public class MensuracaoService {
         PacienteAnaliseDTO pacienteAnaliseDTO = PacienteAnaliseDTO.from(mensuracao.getPaciente());
         AvaliacaoAnaliseDTO avaliacaoAnaliseDTO = AvaliacaoAnaliseDTO.from(mensuracao);
 
-        return new AnaliseResponse(pacienteAnaliseDTO, avaliacaoAnaliseDTO, mensuracao.getObservacoes());
+        return new AnaliseResponse(pacienteAnaliseDTO, avaliacaoAnaliseDTO);
     }
 }
