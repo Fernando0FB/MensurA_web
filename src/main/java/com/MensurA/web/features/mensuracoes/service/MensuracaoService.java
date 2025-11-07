@@ -17,6 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+
 import static com.MensurA.web.features.mensuracoes.model.MensuracaoSpecs.*;
 
 @Service
@@ -57,7 +60,7 @@ public class MensuracaoService {
         mensuracao.setExcursao(mensuracaoDTO.excursao());
         mensuracao.setDor(mensuracaoDTO.dor());
         mensuracao.setObservacoes(mensuracaoDTO.observacoes());
-        mensuracao.setDataHora(mensuracaoDTO.dataHora());
+        mensuracao.setDataHora(mensuracaoDTO.dataHora() != null ? mensuracaoDTO.dataHora() : LocalDateTime.now());
 
         return MensuracaoDTO.from(mensuracaoRepository.save(mensuracao));
     }
